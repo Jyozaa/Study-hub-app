@@ -28,10 +28,12 @@ def load_user(user_id):
 def index():
     return render_template('index.html')
 
-
 @app.route('/home')
 def home():
-    users = User.query.filter(User.id != current_user.id).all()
+    if current_user.is_authenticated:
+        users = User.query.filter(User.id != current_user.id).all()
+    else:
+        users = User.query.all()
     return render_template('home.html', user=current_user, users=users)
 
 
