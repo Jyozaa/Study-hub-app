@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <h1>{{ user.username }}'s Profile</h1>
+    <div class="card my-3">
+        <div class="card-body">
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Level:</strong> {{ user.level }}</p>
+            <p><strong>EXP:</strong> {{ user.exp }} / {{ user.level * 100 }}</p>
+            <p><strong>Total Study Time:</strong> {{ user.total_study_time // 3600 }} hours {{ (user.total_study_time % 3600) // 60 }} minutes</p>
+            <p><strong>Badges: </strong></p>
+            {% if badge == 'nobadge' %}
+                <p>No badges</p>
+            {% else %}
+                <img src="{{ url_for('static', filename='images/badges/' ~ badge) }}" alt="Badge" class="img-fluid" style="max-width: 100px;">
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<br>
+<hr>
+<br>
+
+<h3>Study Session History</h3>
+<div class="list-group">
+    {% for session in study_sessions %}
+    <div class="list-group-item">
+        <p><strong>Start Time:</strong> {{ session.start_time.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+        <p><strong>End Time:</strong> {{ session.end_time.strftime('%Y-%m-%d %H:%M:%S') if session.end_time else 'Ongoing' }}</p>
+        <p><strong>Duration:</strong> {{ session.duration // 60 }} minutes</p>
+    </div>
+    {% else %}
+    <p>No study sessions found for this user.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

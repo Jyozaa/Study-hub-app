@@ -1,0 +1,79 @@
+.navbar-custom {
+    background-color: #6C8EA4; 
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #2E4C5C; 
+    background-color: #F8F5E9; 
+    border-radius: 10px; 
+    padding: 5px 10px; 
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease; 
+    margin: 0 10px;
+}
+
+.navbar-custom .nav-link:hover {
+    background-color: #E5DFC9; 
+    color: #1D3440; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+    text-decoration: none; 
+}
+
+body {
+    background-color: #F8F5E9; 
+    color: #2E4C5C; 
+    font-family: 'Poppins', sans-serif; 
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex-grow: 1; 
+}
+
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fefefe;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+    border-radius: 50%;
+}
+
+
+.messages-box {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+}
+
+.messages-box .message {
+    margin-bottom: 10px;
+}
+
+
+
+.hearticon {
+    border-radius: 0;
+    width: 20px;
+    height: 20px;
+}

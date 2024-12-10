@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <h1>Edit Assessment</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.module_code.label }}
+            {{ form.module_code(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.title.label }}
+            {{ form.title(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.description.label }}
+            {{ form.description(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.due_date.label }}
+            {{ form.due_date(class="form-control") }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Assessment</button>
+        <a href="{{ url_for('assessments') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}

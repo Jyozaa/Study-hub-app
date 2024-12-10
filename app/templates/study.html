@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Study Session</h1>
+
+<div class="card text-center my-4">
+    <div class="card-body">
+        <h3 id="timer">00:00:00</h3>
+
+        {% if active_session %}
+        <form method="POST" action="{{ url_for('stop_study') }}">
+            <button type="submit" class="btn btn-danger">Stop</button>
+        </form>
+        <script>
+            let startTime = new Date("{{ active_session.start_time.strftime('%Y-%m-%dT%H:%M:%S') }}").getTime();
+                setInterval(function() {
+                    const now = new Date().getTime();
+                    const time = Math.floor((now - startTime) / 1000);
+        
+                    const hours = String(Math.floor(time / 3600)).padStart(2, '0');
+                    const minutes = String(Math.floor((time % 3600) / 60)).padStart(2, '0');
+                    const seconds = String(time % 60).padStart(2, '0');
+        
+                    document.getElementById('timer').innerText = `${hours}:${minutes}:${seconds}`;
+                }, 1000);
+        </script>        
+        {% else %}
+        <form method="POST" action="{{ url_for('start_study') }}">
+            <button type="submit" class="btn btn-success">Start</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+
+<h3>Study Session History</h3>
+<div class="list-group">
+    {% for session in study_sessions %}
+    <div class="list-group-item">
+        <p><strong>Start Time:</strong> {{ session.start_time.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+        <p><strong>End Time:</strong> {{ session.end_time.strftime('%Y-%m-%d %H:%M:%S') if session.end_time else 'Ongoing' }}</p>
+        <p><strong>Duration:</strong> {{ session.duration // 3600 }} hours {{ session.duration // 60 }} minutes {{ session.duration % 60 }} seconds</p>
+    </div>
+    {% else %}
+    <p>No study sessions found.</p>
+    {% endfor %}
+</div>
+
+<br>
+
+{% endblock %}

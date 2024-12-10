@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/indexstyle.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <img src="{{ url_for('static', filename='images/background.jpg') }}" alt="Background" class="background-image">
+    
+    <div class="corner-buttons">
+        <a href="{{ url_for('register') }}">
+            <button>Register</button>
+        </a>
+        <a href="{{ url_for('login') }}">
+            <button>Log In</button>
+        </a>
+    </div>
+    <div class="content">
+        <h1>Welcome to Study Hub</h1>
+            <a href="{{ url_for('home') }}">
+                <button>Go to Home</button>
+            </a>
+    </div>
+</body>
+
+</html>

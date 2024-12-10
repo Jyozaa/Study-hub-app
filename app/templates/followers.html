@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <h1>My Followers</h1>
+    {% if followers %}
+    <div class="list-group">
+        {% for follower in followers %}
+        <div class="list-group-item">
+            <h5>{{ follower.username }}</h5>
+            <p><strong>Level:</strong> {{ follower.level }}</p>
+            <p><strong>Total Study Time:</strong> {{ follower.total_study_time // 3600 }} hours</p>
+            <a href="{{ url_for('view_profile', id=follower.id) }}" class="btn btn-primary btn-sm mb-2">View Profile</a>
+
+            {% if follower not in user.following %}
+                <form method="POST" action="{{ url_for('follow', user_id=follower.id) }}" style="display:inline;">
+                    <button type="submit" style="border: none; background: none;">
+                        <img src="{{ url_for('static', filename='images/empty_heart.png') }}" alt="follow" class="hearticon">
+                    </button>
+                </form>
+            {% else %}
+                <form method="POST" action="{{ url_for('unfollow', user_id=follower.id) }}" style="display:inline;">
+                    <button type="submit" style="border: none; background: none;">
+                        <img src="{{ url_for('static', filename='images/full_heart.png') }}" alt="unfollow" class="hearticon" >
+                    </button>
+                </form>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>You have no followers.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

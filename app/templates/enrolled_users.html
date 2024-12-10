@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h1>Students Enrolled in {{ course.title }}</h1>
+    <ul class="list-group mt-3">
+        {% for user in users %}
+        <li class="list-group-item">
+            <strong>{{ user.username }}</strong>
+            <p>Email: {{ user.email }}</p>
+        </li>
+        {% else %}
+        <p class="mt-3">No students currently enrolled in this course.</p>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('courses') }}" class="btn btn-primary mt-3">Back to Courses</a>
+</div>
+
+<br>
+<hr>
+<br>
+
+<div>
+    <h2>Messages:</h2>
+    {% if user in users %}
+        <form method="POST">
+            <textarea name="message" rows="3" class="form-control" placeholder="Write your message here..."></textarea>
+            <button type="submit" class="btn btn-primary mt-2">Post Message</button>
+        </form>
+    {% endif %}
+
+    <div class="messages-box">
+        {% for message in messages %}
+        <div class="message">
+            <p><strong>{{ message.user.username }}:</strong> {{ message.content }}</p>
+            <p class="text-muted small">{{ message.time.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+        </div>
+        {% else %}
+            <p>No messages found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

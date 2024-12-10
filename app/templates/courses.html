@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h1>Courses</h1>
+    <div class="d-flex flex-wrap justify-content-center">
+        {% for course in courses %}
+        <div class="card text-center m-3" style="width: 300px;">
+            <div class="card-body">
+                <h5 class="card-title">{{ course.title }}</h5>
+                <p class="card-text">{{ course.description }}</p>
+                
+                {% if user and course in user.courses %}
+                <a href="{{ url_for('unenroll_from_course', course_id=course.id) }}" class="btn btn-danger">Unenroll</a>
+                {% else %}
+                <a href="{{ url_for('enroll_in_course', course_id=course.id) }}" class="btn btn-primary">Enroll</a>
+                {% endif %}
+                
+                <a href="{{ url_for('enrolled_users', course_id=course.id) }}" class="btn btn-info mt-2">View Enrolled Users</a>
+            </div>
+        </div>
+        {% else %}
+        <p>No courses available.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

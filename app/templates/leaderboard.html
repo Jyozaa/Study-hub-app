@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">Leaderboard</h1>
+    <div class="mt-4">
+        {% if users|length == 0 %}
+        <p class="text-center mt-4">No users registered.</p>
+        {% else %}
+            {% for user in users %}
+            <div class="card d-flex flex-row align-items-center mb-3" style="height: 60px;">
+                <div class="p-2">
+                    <h5 class="mb-0">{{ user.username }}</h5>
+                </div>
+                <div class="ml-auto p-2">
+                    <p class="mb-0">Level: {{ user.level }}</p>
+                    <p class="mb-0">EXP: {{ user.exp }}</p>
+                </div>
+                {% if loop.index == 1 %}
+                    <img src="{{ url_for('static', filename='images/gold.png') }}" alt="Gold" class="ml-2" style="height: 40px;">
+                {% elif loop.index == 2 %}
+                    <img src="{{ url_for('static', filename='images/silver.png') }}" alt="Silver" class="ml-2" style="height: 40px;">
+                {% elif loop.index == 3 %}
+                    <img src="{{ url_for('static', filename='images/bronze.png') }}" alt="Bronze" class="ml-2" style="height: 40px;">
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

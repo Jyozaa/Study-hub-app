@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <h1>My Profile</h1>
+    <div class="card my-3">
+        <div class="card-body">
+            <h4>{{ user.username }}</h4>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Level:</strong> {{ user.level }}</p>
+            <p><strong>EXP:</strong> {{ user.exp }} / {{ user.level * 100 }}</p>
+            <p><strong>Total Study Time:</strong> {{ user.total_study_time // 3600 }} hours {{ (user.total_study_time % 3600) // 60 }} minutes</p>
+            <p><strong>Badges: </strong></p>
+            {% if badge == 'nobadge' %}
+                <p>Get to studying!</p>
+            {% else %}
+                <img src="{{ url_for('static', filename='images/badges/' ~ badge) }}" alt="Badge" class="img-fluid" style="max-width: 100px;">
+            {% endif %}
+            <a href="{{ url_for('edit_profile') }}" class="btn btn-secondary">Edit Profile</a>
+            <a href="{{ url_for('followers') }}" class="btn btn-secondary">My followers</a>
+        </div>
+    </div>
+</div>
+
+<br>
+<hr>
+<br>
+
+
+<h3>Enrolled Courses</h3>
+    {% if courses %}
+        <div class="container">
+            {% for course in courses %}
+            <div class="card my-3" style="width: 100%; max-width: 600px; margin: 0 auto;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.title }}</h5>
+                    <p class="card-text">{{ course.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center">You are not enrolled in any courses.</p>
+    {% endif %}
+
+
+<br>
+<hr>
+<br>
+
+<h3>Your Study Session History</h3>
+<br>
+<div class="list-group">
+    {% for session in study_sessions %}
+    <div class="list-group-item">
+        <p><strong>Start Time:</strong> {{ session.start_time.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+        <p><strong>End Time:</strong> {{ session.end_time.strftime('%Y-%m-%d %H:%M:%S') if session.end_time else 'Ongoing' }}</p>
+        <p><strong>Duration:</strong> {{ session.duration // 3600 }} hours {{ session.duration // 60 }} minutes {{ session.duration % 60 }} seconds</p>
+    </div>
+    {% else %}
+    <p>No study sessions found.</p>
+    {% endfor %}
+</div>
+<br>
+
+{% endblock %}
