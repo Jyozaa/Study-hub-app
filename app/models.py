@@ -41,7 +41,6 @@ class User(db.Model, UserMixin):
         primaryjoin=(follows.c.follower_id == id),
         secondaryjoin=(follows.c.followed_id == id),
         backref="followers",
-        lazy="dynamic"
     )
 
 
